@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+}
+
+#main-content {
+  font-family: monospace;
+  background-color: white;
+  text-align: center;
+  width: 50%;
+  height: 90vh;
+  margin: auto;
+}
+
+#header {
+  padding-top: 30px;
+}
