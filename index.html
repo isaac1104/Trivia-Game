@@ -11,23 +11,25 @@
 
 <body>
   <div id="main-content" class="container">
-    <h1 id="header" class="jumbotron">NBA Trivia Game: 2017 Edition</h1>
-    <div id="display" class="well well-lg"><button id="start" class="btn btn-primary btn-lg">START</button>
+    <h1 id="header" class="jumbotron">Trivially Trivial Trivia Game: NBA Edition <hr></h1>
+    <div class="well well-lg"><button id="start" class="btn btn-primary btn-lg">START</button>
       <div id="rightOrWrong"></div>
       <div id="explain"></div>
-      <button id="next" class="btn btn-primay btn-lg">NEXT QUESTION</button>
-      <button id="next2" class="btn btn-info btn-lg">NEXT QUESTION</button>
-      <button id="next3" class="btn btn-success btn-lg">NEXT QUESTION</button>
-      <button id="next4" class="btn btn-warning btn-lg">NEXT QUESTION</button>
-      <button id="next5" class="btn btn-danger btn-lg">NEXT QUESTION</button>
-      <button id="result" class="btn btn-info btn-lg">SHOW RESULT</button>
-      <div id="time-left"></div>
-      <div id="question"></div>
-      <div id="choices">
-        <div class="answer-choices choice-1" value="1"></div>
-        <div class="answer-choices choice-2" value="2"></div>
-        <div class="answer-choices choice-3" value="3"></div>
-        <div class="answer-choices choice-4" value="4"></div>
+      <div id="display">
+        <div id="time-left"></div>
+        <div id="question"></div>
+        <hr>
+        <div id="choices">
+          <div class="answer-choices choice-1" value="1"></div>
+          <div class="answer-choices choice-2" value="2"></div>
+          <div class="answer-choices choice-3" value="3"></div>
+          <div class="answer-choices choice-4" value="4"></div>
+        </div>
+      </div>
+      <div id="displayResult">
+        <div id="wins"></div>
+        <div id="losses"></div>
+        <button id="replay" class="btn btn-success btn-lg">REPLAY</button>
       </div>
     </div>
   </div>
