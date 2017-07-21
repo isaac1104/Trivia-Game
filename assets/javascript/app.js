@@ -34,7 +34,7 @@ var trivia = {
     {
       question: "Which player was the NBA 2017 finals MVP?",
       answer: "Kevin Durant",
-      explanation: "Kevin Durant was named the 2017 Bill Russell NBA Finals MVP following the Warriors’ Game 5 elimination victory over the Cleveland Cavaliers on Monday. He capped off the series with a 39-point performance to lead the Warriors to a 129-120 win.",
+      explanation: "Kevin Durant was named the 2017 NBA Finals MVP following the Warriors’ Game 5 elimination victory over the Cleveland Cavaliers. Durant capped off the series with a 39-point performance to lead the Warriors to a 129-120 win.",
       multipleChoice: ["Stephen Curry", "Kevin Durant", "Klay Thompson", "Andre Igoudala"]
     },
     {
@@ -47,8 +47,8 @@ var trivia = {
 };
 //Function that displays the result at the end//
 function displayResults() {
-  $("#displayResult").show();
   $("#display").hide();
+  $("#displayResult").show();
   $("#wins").html("Total number of correct guesses: " + correctGuess);
   $("#losses").html("Total number of incorrect guesses: " + wrongGuess);
   $("#replay").fadeIn();
@@ -56,22 +56,39 @@ function displayResults() {
 //Function that reloads the game back to the first question//
 function startGame() {
   questionNumber = 0;
+  correctGuess = 0;
+  wrongGuess = 0;
   askQuestion(questionNumber);
   $("#display").fadeIn();
   $("#start").fadeOut();
   $("#replay").fadeOut();
 }
+//Timer that counts down to 0//
+function timer() {
+  time--;
+  $("#time-left").html("<h5>Time Left: " + time + " seconds</h5>");
+  if (time === 0) {
+    clearInterval(intervalId);
+    questionNumber++;
+    wrongGuess++;
+    askQuestion(questionNumber);
+  } else {
+    intervalId = setTimeout(timer, 1000);
+  }
+}
 //Function that generates questions from the trivia object. questionNumber parameter represents the number of questions in the array.//
 function askQuestion(questionNumber) {
   //Sets the timer to 15 seconds on every new questions//
-  time = 15;
-  timer();
+  time = 16;
   if (questionNumber < trivia.questions.length) {
     $("#question").html("<h3>" + trivia.questions[questionNumber].question + "</h3>");
     $(".choice-1").html(trivia.questions[questionNumber].multipleChoice[0]);
     $(".choice-2").html(trivia.questions[questionNumber].multipleChoice[1]);
     $(".choice-3").html(trivia.questions[questionNumber].multipleChoice[2]);
     $(".choice-4").html(trivia.questions[questionNumber].multipleChoice[3]);
+  } else if (questionNumber === trivia.questions.length) {
+    clearInterval(intervalId);
+    displayResults();
   }
 }
 //Function that checks to see if the answer clicked is the right answer//
@@ -82,47 +99,46 @@ function checkAnswer(guess) {
     return false;
   }
 }
-//Timer that counts down to 0//
-function timer() {
-    time--;
-    $("#time-left").html("<h4>Time Left: " + time + " seconds</h4>");
-    if (time === 0) {
-      clearInterval(intervalId);
-      questionNumber++;
-      wrongGuess++;
-      askQuestion(questionNumber);
-    } else if (questionNumber === trivia.questions.length) {
-      clearInterval(intervalId);
-      displayResults();
-    } else {
-      intervalId = setTimeout(timer, 1000);
-  }
+//Function that shows the explanation of the answer in-between each questions//
+function explanation() {
+  $("#display").hide();
+  $("#explain").html(trivia.questions[questionNumber].explanation);
+  questionNumber++;
 }
 
 $(document).ready(function() {
   $("#replay").hide();
   $("#next").hide();
   $("#start").on("click", function() {
-    questionNumber = 0;
-    correctGuess = 0;
-    wrongGuess = 0;
-    time = 16;
+    timer();
     startGame();
   });
   $(".answer-choices").on("click", function() {
     if (checkAnswer($(this).html()) === true) {
+      $("#rightOrWrong").html("<h3>"+ "You Are Correct!" +"</h3>");
       correctGuess++;
-      questionNumber++;
-      askQuestion(questionNumber);
+      explanation();
+      setTimeout(function() {
+        askQuestion(questionNumber);
+        $("#display").show();
+        $("#rightOrWrong").hide();
+        $("#explain").hide();
+      },5000);
     } else if (checkAnswer($(this).html()) === false) {
+      $("#rightOrWrong").html("<h3>"+ "You Are Wrong!" +"</h3>");
       wrongGuess++;
-      questionNumber++;
-      askQuestion(questionNumber);
+      explanation();
+      setTimeout(function() {
+        askQuestion(questionNumber);
+        $("#display").show();
+        $("#rightOrWrong").hide();
+        $("#explain").hide();
+      },5000);
     }
   });
   $("#replay").on("click", function() {
     startGame();
-    $("#wins").fadeOut();
-    $("#losses").fadeOut();
+    timer();
+    $("#displayResult").hide();
   });
 });
