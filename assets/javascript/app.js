@@ -59,7 +59,9 @@ function startGame() {
   correctGuess = 0;
   wrongGuess = 0;
   askQuestion(questionNumber);
-  $("#display").fadeIn();
+  $("#time-left").show();
+  $("#question").show();
+  $("#choices").show();
   $("#start").fadeOut();
   $("#replay").fadeOut();
 }
@@ -87,6 +89,11 @@ function askQuestion(questionNumber) {
     $(".choice-3").html(trivia.questions[questionNumber].multipleChoice[2]);
     $(".choice-4").html(trivia.questions[questionNumber].multipleChoice[3]);
   } else if (questionNumber === trivia.questions.length) {
+    $("#time-left").hide();
+    $("#question").hide();
+    $("#choices").hide();
+    $("#rightOrWrong").hide();
+    $("#explain").hide();
     clearInterval(intervalId);
     displayResults();
   }
@@ -102,6 +109,8 @@ function checkAnswer(guess) {
 //Function that shows the explanation of the answer in-between each questions//
 function explanation() {
   $("#display").hide();
+  $("#rightOrWrong").show();
+  $("#explain").show();
   $("#explain").html(trivia.questions[questionNumber].explanation);
   questionNumber++;
 }
