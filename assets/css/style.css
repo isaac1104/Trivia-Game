@@ -7,12 +7,25 @@ body {
   background-image: url("../images/nba.jpg");
 }
 
+.text-center {
+  color: #552582;
+}
+
+#jumbo {
+  background-color: white;
+}
+
+#display {
+  background-color: #552582;
+  color: white;
+}
+
 #main-content {
   font-family: monospace;
-  background-color: white;
+  background-color: #FDB927;
   text-align: center;
   width: 50%;
-  height: 90vh;
+  height: 80vh;
   margin: auto;
 }
 

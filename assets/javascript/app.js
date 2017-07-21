@@ -6,41 +6,50 @@ var wrongGuess = 0;
 var unanswered = 0;
 var questionNumber = 0;
 var timeRunning = false;
+//Theme Song//
+var getAudio = document.createElement("audio");
+getAudio.setAttribute("src", "Assets/sound/theme.mp3");
+$(".theme-button").on("click", function() {
+  getAudio.play();
+});
+$(".pause-button").on("click", function() {
+  getAudio.pause();
+});
 //Trivia question objects//
 var trivia = {
   questions: [{
       question: "Which player has won the most NBA championships?",
       answer: "Bill Russell",
-      explanation: "Bill Russell has won the most NBA championships with total of 16 championship wins playing for the Boston Celtics",
+      explanation: "<img width=300px, src='assets/images/billrussell.gif'>" + "<br>" + "The correct answer is Bill Russell. Bill Russell has won the most NBA championships with total of 16 championship wins.",
       multipleChoice: ["Bill Russell", "Michael Jordan", "Tim Duncan", "Kobe Bryant"]
     },
     {
       question: "Which NBA team has won the most NBA championships?",
       answer: "Boston Celtics",
-      explanation: "Boston Celtics have won the NBA championships 17 times. Los Angeles Lakers are right behind the Celtics with 16 wins.",
+      explanation: "<img width=300px, src='assets/images/celtics.gif'>" + "<br>" + "The answer is Boston Celtics!. Boston Celtics have won the NBA championships 17 times. Los Angeles Lakers are right behind the Celtics with 16 wins.",
       multipleChoice: ["Los Angeles Lakers", "Indiana Pacers", "Boston Celtics", "Golden State Warriors"]
     },
     {
       question: "Who is the NBA's all-time scoring leader?",
       answer: "Kareem Abdul-Jabbar",
-      explanation: "The NBA's top scorer is Kareem Abdul-Jabbar, with 38,387 points. Karl Malone, Kobe Bryant and Michael Jordan are 2nd, 3rd, and 4th all-time scorers in the league.",
+      explanation: "<img width = 300px, src='assets/images/kaj.gif'>" + "<br>" + "The NBA's top scorer is Kareem Abdul-Jabbar, with 38,387 points. Karl Malone, Kobe Bryant and Michael Jordan are 2nd, 3rd, and 4th all-time scorers in the league.",
       multipleChoice: ["Lebron James", "Michael Jordan", "Kobe Bryant", "Kareem Abdul-Jabbar"]
     },
     {
       question: "What is Kobe Bryant's career high score?",
       answer: "81 Points",
-      explanation: "In 2006, Bryant scored a career-high 81 points against the Toronto Raptors. It was the second-highest number of points scored in a game in NBA history, behind only Chamberlain's 100-point performance in 1962.",
+      explanation: "<img width = 300px, src='assets/images/kobe.gif'>" + "<br>" + "The correct answer is 81 points! In 2006, Bryant scored a career-high 81 points against the Toronto Raptors. It was the second-highest number of points scored in a game in NBA history, behind only Chamberlain's 100-point performance in 1962.",
       multipleChoice: ["69 Points", "73 Points", "85 Points", "81 Points"]
     },
     {
       question: "Which player was the NBA 2017 finals MVP?",
       answer: "Kevin Durant",
-      explanation: "Kevin Durant was named the 2017 NBA Finals MVP following the Warriors’ Game 5 elimination victory over the Cleveland Cavaliers. Durant capped off the series with a 39-point performance to lead the Warriors to a 129-120 win.",
+      explanation: "<img width = 300px, src='assets/images/kd.gif'>"+ "<br>" + "The correct answer is Kevin Durant! Kevin Durant was named the 2017 NBA Finals MVP following the Warriors’ Game 5 elimination victory over the Cleveland Cavaliers. Durant capped off the series with a 39-point performance to lead the Warriors to a 129-120 win.",
       multipleChoice: ["Stephen Curry", "Kevin Durant", "Klay Thompson", "Andre Igoudala"]
     },
     {
       question: "In the 2010 NBA Finals, the Lakers beat the Celtics in which game?",
-      explanation: "This game was the first Game 7 in an NBA Finals since 2005 five years earlier. Los Angeles Lakers beat the Celtics 83 to 79 and won their 16th NBA championship title.",
+      explanation: "<img width = 300px, src='assets/images/lakers.gif'>" + "<br>" + "The correct answer is Game 7! This game was the first Game 7 in an NBA Finals since 2005 five years earlier. Los Angeles Lakers beat the Celtics 83 to 79 and won their 16th NBA championship title.",
       answer: "Game 7",
       multipleChoice: ["Game 5", "Game 4", "Game 7", "Game 6"]
     },
@@ -81,7 +90,7 @@ function timer() {
       askQuestion(questionNumber);
       time = 16;
       timer();
-      $("#display").show();
+      $("#display").fadeIn();
       $("#rightOrWrong").hide();
       $("#explain").hide();
     }, 5000);
@@ -89,7 +98,7 @@ function timer() {
     intervalId = setTimeout(timer, 1000);
   }
 }
-//Function that generates questions from the trivia object. questionNumber parameter represents the number of questions in the array.//
+//Function that generates questions from the trivia object.//
 function askQuestion(questionNumber) {
   //Sets the timer to 15 seconds on every new questions//
   time = 16;
@@ -140,7 +149,7 @@ $(document).ready(function() {
       explanation();
       setTimeout(function() {
         askQuestion(questionNumber);
-        $("#display").show();
+        $("#display").fadeIn();
         $("#rightOrWrong").hide();
         $("#explain").hide();
       }, 5000);
@@ -150,7 +159,7 @@ $(document).ready(function() {
       explanation();
       setTimeout(function() {
         askQuestion(questionNumber);
-        $("#display").show();
+        $("#display").fadeIn();
         $("#rightOrWrong").hide();
         $("#explain").hide();
       }, 5000);
