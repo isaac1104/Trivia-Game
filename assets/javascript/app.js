@@ -3,6 +3,7 @@ var time = 16;
 var intervalId;
 var correctGuess = 0;
 var wrongGuess = 0;
+var unanswered = 0;
 var questionNumber = 0;
 var timeRunning = false;
 //Trivia question objects//
@@ -51,6 +52,7 @@ function displayResults() {
   $("#displayResult").show();
   $("#wins").html("Total number of correct guesses: " + correctGuess);
   $("#losses").html("Total number of incorrect guesses: " + wrongGuess);
+  $("#unanswered").html("Total number of unanswered guesses: " + unanswered);
   $("#replay").fadeIn();
 }
 //Function that reloads the game back to the first question//
@@ -58,6 +60,7 @@ function startGame() {
   questionNumber = 0;
   correctGuess = 0;
   wrongGuess = 0;
+  unanswered = 0;
   askQuestion(questionNumber);
   $("#time-left").show();
   $("#question").show();
@@ -71,9 +74,17 @@ function timer() {
   $("#time-left").html("<h5>Time Left: " + time + " seconds</h5>");
   if (time === 0) {
     clearInterval(intervalId);
-    questionNumber++;
-    wrongGuess++;
-    askQuestion(questionNumber);
+    unanswered++;
+    $("#rightOrWrong").html("<h3>" + "Time's Up!" + "</h3>");
+    explanation();
+    setTimeout(function() {
+      askQuestion(questionNumber);
+      time = 16;
+      timer();
+      $("#display").show();
+      $("#rightOrWrong").hide();
+      $("#explain").hide();
+    }, 5000);
   } else {
     intervalId = setTimeout(timer, 1000);
   }
@@ -124,7 +135,7 @@ $(document).ready(function() {
   });
   $(".answer-choices").on("click", function() {
     if (checkAnswer($(this).html()) === true) {
-      $("#rightOrWrong").html("<h3>"+ "You Are Correct!" +"</h3>");
+      $("#rightOrWrong").html("<h3>" + "You Are Correct!" + "</h3>");
       correctGuess++;
       explanation();
       setTimeout(function() {
@@ -132,9 +143,9 @@ $(document).ready(function() {
         $("#display").show();
         $("#rightOrWrong").hide();
         $("#explain").hide();
-      },5000);
+      }, 5000);
     } else if (checkAnswer($(this).html()) === false) {
-      $("#rightOrWrong").html("<h3>"+ "You Are Wrong!" +"</h3>");
+      $("#rightOrWrong").html("<h3>" + "You Are Wrong!" + "</h3>");
       wrongGuess++;
       explanation();
       setTimeout(function() {
@@ -142,7 +153,7 @@ $(document).ready(function() {
         $("#display").show();
         $("#rightOrWrong").hide();
         $("#explain").hide();
-      },5000);
+      }, 5000);
     }
   });
   $("#replay").on("click", function() {
